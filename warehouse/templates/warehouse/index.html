@@ -1,0 +1,24 @@
+{% if latest_orders %}
+    Last 3 orders placed:
+    <ul>
+    {% for order in latest_orders %}
+        <li><a href="{% url 'details' order.id %}">{{ order }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No orders have been placed.</p>
+{% endif %}
+<br/>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+Place a new order:
+<form action="{% url 'place_order' %}" method="post">
+{% csrf_token %}
+Item Name: <input type="text" name="item" maxlength="100" />
+Quantity: <input type="number" name="quantity" min="1" max="20" /><br/>
+{% for classification in classifications %}
+    <input type="checkbox" name="classifications[]" value="{{ classification.id }}">{{ classification.title }} required?<br/>
+{% endfor %}
+<br/>
+<input type="submit" value="Place Order" />
+</form>
