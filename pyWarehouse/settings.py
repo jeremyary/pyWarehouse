@@ -1,3 +1,10 @@
+import djcelery
+
+djcelery.setup_loader()
+
+BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+CELERY_RESULT_BACKEND = 'amqp://guest:guest@localhost:5672/'
+
 """
 Django settings for pyWarehouse project.
 
@@ -37,6 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'warehouse',
+    'djcelery',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -23,9 +23,15 @@ class Order(models.Model):
     placed = models.DateTimeField('order placed', default=datetime.now)
     status = models.CharField(max_length=25, default="placed")
     classifications = models.ManyToManyField(Classification, blank=True)
+    result_id = models.CharField(max_length=60, default = '')
 
     def __str__(self):
-        return ''.join(('Order for ', str(self.quantity), ' of ', self.item, ' placed ', self.placed.strftime("%Y-%m-%d %H:%M:%S")))
+        return ''.join([
+                       str(self.quantity), ' of ', self.item,
+                       ', time[', self.placed.strftime("%Y-%m-%d %H:%M:%S"), ']',
+                       ', result_id[', self.result_id, ']',
+                       ', status[', self.status, ']'
+       ])
 
 
 
